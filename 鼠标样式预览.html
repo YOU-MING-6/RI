@@ -3,163 +3,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鼠标样式预览</title>
+    <title>鼠标样式预览工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 定义容器样式，使用 Flex 布局 */
-        .container {
+        :root {
+            /* 颜色变量 */
+            --primary: #4285f4;
+            --primary-light: rgba(66, 133, 244, 0.1);
+            --primary-dark: #3367d6;
+            --success: #34a853;
+            --warning: #fbbc05;
+            --danger: #ea4335;
+            --info: #4285f4;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            
+            /* 间距变量 */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            
+            /* 圆角变量 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* 阴影变量 */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            
+            /* 过渡效果 */
+            --transition: all 0.2s ease;
+        }
+
+        /* 基础样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* 文本不可选中 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--gray-800);
+            background-color: var(--gray-100);
+            transition: background-color 0.3s;
+        }
+
+        /* 布局容器 */
+        .app-container {
+            display: grid;
+            grid-template-columns: minmax(250px, 300px) 1fr;
+            gap: var(--space-lg);
+            min-height: 100vh;
+            padding: var(--space-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
             display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
         }
-        /* 定义按钮容器样式 */
-        .buttons {
-            width: 200px;
-            padding: 20px;
-            background-color: transparent;
+
+        /* 搜索框 */
+        .search-box {
+            position: relative;
         }
-        /* 定义按钮样式 */
-        .buttons button {
-            display: block;
+
+        .search-box input {
             width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            cursor: pointer;
-            border: 1px solid rgba(34, 139, 230, 0.2); /* 添加边框 */
-            border-radius: 5px; /* 添加圆角 */
-            background-color: rgba(34, 139, 230, 0.3); /* 添加背景颜色 */
-            color: #fff; /* 添加文字颜色 */
-            transition: background-color 0.3s, color 0.3s, opacity 0.3s, border-color 0.3s; /* 添加过渡效果 */
-            opacity: 0.9; /* 添加透明度 */
-            font-size: 15px; /* 添加字体大小 */
+            padding: var(--space-sm) var(--space-md);
+            padding-left: 2.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            transition: var(--transition);
+            background-color: var(--gray-100);
         }
-        /* 定义按钮鼠标悬停样式 */
-        .buttons button:hover {
-            background-color: rgba(34, 139, 230, 0.9);
-            color: #fff;
-            opacity: 0.8;
-            border-color: rgba(34, 139, 230, 0.8); /* 悬停时的边框颜色 */
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
         }
-        /* 定义按钮被点击时的样式 */
-        .buttons button:active {
-            opacity: 0.9;
-            border-color: rgba(34, 139, 230, 0.8); /* 点击时的边框颜色 */
+
+        .search-box i {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-500);
         }
-        /* 定义选中状态的按钮样式 */
-        .buttons button.selected {
-            background-color: rgba(34, 139, 230, 0.8);
-            color: #fff;
-            border-color: rgba(34, 139, 230, 0.8); /* 选中时的边框颜色 */
+
+        /* 按钮组 */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+            padding-right: var(--space-xs);
         }
-        /* 定义“无鼠标”状态的按钮样式 */
-        .buttons button.no-mouse {
-            background-color: rgba(128, 128, 128, 0.35);
-            border: 1px solid rgba(128, 128, 128, 0.4); /* 添加边框 */
+
+        /* 自定义滚动条 */
+        .button-group::-webkit-scrollbar {
+            width: 6px;
         }
-        /* 定义“无鼠标”状态的按钮悬停和选中样式 */
-        .buttons button.no-mouse:hover, .buttons button.no-mouse.selected {
-            background-color: rgba(128, 128, 128, 0.5);
-            border-color: rgba(128, 128, 128, 0.5); /* 悬停和选中时的边框颜色 */
+
+        .button-group::-webkit-scrollbar-track {
+            background: var(--gray-200);
+            border-radius: 10px;
         }
-        /* 定义显示区域样式 */
-        .display {
-            position: fixed;
-            top: 30px;
-            left: 280px;
-            width: 450px;
-            height: 650px;
-            border: 1px solid #ccc;
+
+        .button-group::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: 10px;
+        }
+
+        /* 按钮样式 */
+        .cursor-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            border-radius: var(--radius-sm);
             background-color: transparent;
+            color: inherit;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
         }
-        /* 根据系统颜色主题设置浅色模式背景 */
-        @media (prefers-color-scheme: light) {
-            body {
-                background-color: #ffffff;
-            }
+
+        .cursor-btn:hover {
+            background-color: var(--gray-200);
         }
-        /* 根据系统颜色主题设置深色模式背景 */
+
+        .cursor-btn.selected {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .cursor-btn .badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .cursor-btn.warning .badge {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .cursor-btn.danger .badge {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .cursor-btn.info .badge {
+            background-color: var(--info);
+            color: white;
+        }
+
+        /* 预览区域 */
+        .preview-area {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            background-color: var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .preview-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border-radius: var(--radius-sm);
+            padding: var(--space-xl);
+            text-align: center;
+            cursor: default;
+        }
+
+        .preview-container.dark {
+            background-color: var(--gray-800);
+            color: white;
+        }
+
+        .preview-title {
+            font-size: 1.2rem;
+            margin-bottom: var(--space-md);
+            font-weight: 500;
+        }
+
+        .preview-desc {
+            color: var(--gray-600);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .preview-desc.dark {
+            color: var(--gray-400);
+        }
+
+        .warning-message {
+            margin-top: var(--space-md);
+            padding: var(--space-sm);
+            background-color: var(--warning);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .info-message {
+            margin-top: var(--space-md);
+            padding: var(--space-sm);
+            background-color: var(--info);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            display: none;
+        }
+        /* 暗色模式 */
         @media (prefers-color-scheme: dark) {
             body {
-                background-color: #333333;
+                color: var(--gray-200);
+                background-color: var(--gray-900);
+            }
+            
+            /* 修复暗色模式下预览区域背景 */
+            .preview-area {
+                background-color: var(--gray-700);
+            }
+            
+            /* 修复暗色模式下搜索框样式 */
+            .search-box input {
+                background-color: var(--gray-800);
+                border-color: var(--gray-700);
+                color: var(--gray-200);
+            }
+            
+            /* 修复暗色模式下按钮悬停效果 */
+            .cursor-btn:hover {
+                background-color: var(--gray-700);
+            }
+            
+            /* 修复暗色模式下选中按钮样式 */
+            .cursor-btn.selected {
+                background-color: var(--primary-dark);
+                color: white;
+            }
+        }
+
+        /* 页脚样式 */
+        .footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: var(--space-md) 0;
+            color: var(--gray-600);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--gray-200);
+            margin-top: var(--space-lg);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                color: var(--gray-400);
+                border-top-color: var(--gray-700);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
+            
+            .button-group {
+                max-height: 200px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="buttons" id="buttonsContainer"></div>
-        <div class="display" id="displayArea"></div>
+    <div class="app-container">
+        <div class="sidebar">
+            <h1>鼠标样式预览</h1>
+            <p>点击下方按钮预览不同鼠标样式</p>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索鼠标样式...">
+            </div>
+            
+            <div class="button-group" id="buttonsContainer"></div>
+        </div>
+        
+        <div class="preview-area">
+            <div class="preview-container" id="displayArea">
+                <h2 class="preview-title">鼠标样式预览区</h2>
+                <p class="preview-desc">请从左侧选择要预览的鼠标样式</p>
+                <p class="preview-desc">在此区域移动鼠标查看效果</p>
+                
+                <div class="warning-message" id="warningMessage">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    注意：此鼠标样式为系统默认，无法在鼠标设置中更改
+                </div>
+                
+                <div class="info-message" id="infoMessage">
+                    <i class="fas fa-info-circle"></i>
+                    提示：此样式会隐藏鼠标指针，鼠标不可见属于正常现象
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>鼠标样式预览工具 &copy; 2025 - <span id="currentYear"></span> | <a href="https://work.youming.v6.army/notes/%E6%9B%B4%E5%A4%9A/%E5%B7%A5%E4%BD%9C%E5%AE%A4.html#you-ming-%E6%9F%9A%E6%98%8E" target="_blank">Youming 工作室</a></p>
+        </div>
     </div>
-    <p style="text-align: left; color: #808080; margin-top: 15px; font-weight: bold;">
-        制作：<a href="https://work.youming.us.kg/notes/更多/工作室.html#you-ming-柚明" target="_blank" style="color: #228be6;">YOU MING 柚明</a>
-        <br>
-        作品文档：<a href="https://work.youming.us.kg/notes/MC-鼠标指针.html" target="_blank" style="color: #228be6;">MC 鼠标指针</a>
-    </p>
+
     <script>
-        /* 定义鼠标样式数组 */
-        const cursorStyles = [
-            { en: 'default', zh: '正常选择' },
-            { en: 'help', zh: '帮助选择' },
-            { en: 'pointer', zh: '链接选择' },
-            { en: 'progress', zh: '后台运行' },
-            { en: 'wait', zh: '忙' },
-            { en: 'crosshair', zh: '精确选择' },
-            { en: 'text', zh: '文本选择' },
-            { en: 'not-allowed', zh: '不允许' },
-            { en: 'ns-resize', zh: '垂直调整大小' },
-            { en: 'ew-resize', zh: '水平调整大小' },
-            { en: 'nwse-resize', zh: '沿对角线调整大小 1' },
-            { en: 'nesw-resize', zh: '沿对角线调整大小 2' },
-            { en: 'move', zh: '移动' },
-            { en: 'none', zh: '无鼠标' },
+        // 鼠标样式数据
+        const CURSOR_STYLES = [
+            { id: 'default', label: '默认指针', desc: '标准选择指针', icon: 'arrow-pointer' },
+            { id: 'pointer', label: '链接指针', desc: '表示可点击的链接', icon: 'hand-pointer' },
+            { id: 'text', label: '文本选择', desc: '表示可选择的文本', icon: 'i-cursor' },
+            { id: 'crosshair', label: '精确选择', desc: '用于精确选择工具', icon: 'crosshairs' },
+            { id: 'wait', label: '等待', desc: '表示系统繁忙', icon: 'spinner' },
+            { id: 'help', label: '帮助', desc: '表示可用的帮助', icon: 'question-circle' },
+            { id: 'progress', label: '进度中', desc: '表示后台处理中', icon: 'sync' },
+            { id: 'not-allowed', label: '禁止', desc: '表示不可用的操作', icon: 'ban' },
+            { id: 'move', label: '移动 & 全方位滚动', desc: '表示可移动的对象 或 可全方位滚动的区域', icon: 'arrows-alt' },
+            { id: 'ns-resize', label: '垂直调整', desc: '表示垂直调整大小', icon: 'arrows-alt-v' },
+            { id: 'ew-resize', label: '水平调整', desc: '表示水平调整大小', icon: 'arrows-alt-h' },
+            { id: 'nesw-resize', label: '对角调整1', desc: '表示对角线调整大小', icon: 'arrows-alt' },
+            { id: 'nwse-resize', label: '对角调整2', desc: '表示对角线调整大小', icon: 'arrows-alt' },
+            { id: 'col-resize', label: '列调整', desc: '表示列调整大小', warning: true, icon: 'grip-lines-vertical' },
+            { id: 'row-resize', label: '行调整', desc: '表示行调整大小', warning: true, icon: 'grip-lines' },
+            { id: 'zoom-in', label: '放大', desc: '表示放大功能', warning: true, icon: 'search-plus' },
+            { id: 'zoom-out', label: '缩小', desc: '表示缩小功能', warning: true, icon: 'search-minus' },
+            { id: 'grab', label: '抓取', desc: '表示可抓取的对象', warning: true, icon: 'hand-paper' },
+            { id: 'grabbing', label: '抓取中', desc: '表示正在抓取的对象', warning: true, icon: 'hand-rock' },
+            { id: 'none', label: '无指针', desc: '隐藏鼠标指针', info: true, icon: 'eye-slash' }
         ];
 
-        /* 记录上次选中的按钮 */
-        let lastSelectedButton = null;
-
-        /* 创建按钮元素并添加到页面 */
-        function createButtons() {
-            const buttonsContainer = document.getElementById('buttonsContainer');
-            if (!buttonsContainer) {
-                console.error('按钮容器元素未找到');
-                return;
+        // 鼠标预览应用
+        class CursorPreviewApp {
+            constructor() {
+                this.buttonsContainer = document.getElementById('buttonsContainer');
+                this.displayArea = document.getElementById('displayArea');
+                this.searchInput = document.getElementById('searchInput');
+                this.warningMessage = document.getElementById('warningMessage');
+                this.infoMessage = document.getElementById('infoMessage');
+                this.currentSelected = null;
+                
+                this.init();
+            }
+            
+            init() {
+                this.renderCursorButtons();
+                this.setupEventListeners();
+                this.selectDefaultCursor();
+            }
+            
+            renderCursorButtons() {
+                this.buttonsContainer.innerHTML = '';
+                
+                CURSOR_STYLES.forEach(style => {
+                    const button = document.createElement('button');
+                    button.className = 'cursor-btn';
+                    button.dataset.cursor = style.id;
+                    
+                    if (style.warning) {
+                        button.classList.add('warning');
+                    } else if (style.info) {
+                        button.classList.add('info');
+                    }
+                    
+                    button.innerHTML = `
+                        <span>
+                            <i class="fas fa-${style.icon}"></i>
+                            ${style.label}
+                        </span>
+                        ${style.warning ? '<span class="badge">系统默认</span>' : ''}
+                        ${style.info ? '<span class="badge">指针将不可见</span>' : ''}
+                    `;
+                    
+                    button.addEventListener('click', () => this.selectCursor(style));
+                    this.buttonsContainer.appendChild(button);
+                });
             }
 
-            cursorStyles.forEach(style => {
-                const button = document.createElement('button');
-                button.textContent = style.zh;
-                if (style.zh === '无鼠标') {
-                    button.classList.add('no-mouse');
+            setupEventListeners() {
+                // 搜索功能
+                this.searchInput.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const buttons = this.buttonsContainer.querySelectorAll('.cursor-btn');
+                    
+                    buttons.forEach(button => {
+                        const label = button.textContent.toLowerCase();
+                        button.style.display = label.includes(searchTerm) ? 'flex' : 'none';
+                    });
+                });
+                
+                // 暗色模式检测
+                const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                this.toggleDarkModePreview(darkModeMediaQuery.matches);
+                darkModeMediaQuery.addListener(e => this.toggleDarkModePreview(e.matches));
+            }
+            
+            toggleDarkModePreview(isDark) {
+                if (isDark) {
+                    this.displayArea.classList.add('dark');
+                    this.displayArea.querySelector('.preview-desc').classList.add('dark');
+                } else {
+                    this.displayArea.classList.remove('dark');
+                    this.displayArea.querySelector('.preview-desc').classList.remove('dark');
                 }
-                button.onclick = () => setCursor(style.en, button);
-                buttonsContainer.appendChild(button);
-
-                // 默认选中“正常选择”按钮
-                if (style.zh === '正常选择') {
-                    setCursor(style.en, button);
+            }
+            
+            selectDefaultCursor() {
+                const defaultCursor = CURSOR_STYLES.find(style => style.id === 'default');
+                if (defaultCursor) {
+                    this.selectCursor(defaultCursor);
                 }
-            });
-        }
-
-        /* 设置显示区域的鼠标样式，并更新选中按钮的高亮状态 */
-        function setCursor(cursorType, button) {
-            const displayArea = document.getElementById('displayArea');
-            if (!displayArea) {
-                console.error('显示区域元素未找到');
-                return;
             }
-
-            displayArea.style.cursor = cursorType;
-
-            // 取消上一个选中按钮的高亮
-            if (lastSelectedButton) {
-                lastSelectedButton.classList.remove('selected');
+            
+            selectCursor(style) {
+                // 更新显示区域的鼠标样式
+                this.displayArea.style.cursor = style.id;
+                
+                // 更新预览信息
+                const title = this.displayArea.querySelector('.preview-title');
+                const desc = this.displayArea.querySelector('.preview-desc');
+                
+                title.innerHTML = `<i class="fas fa-${style.icon}"></i> ${style.label}`;
+                desc.textContent = style.desc;
+                
+                // 更新按钮选中状态
+                if (this.currentSelected) {
+                    this.currentSelected.classList.remove('selected');
+                }
+                
+                const selectedButton = this.buttonsContainer.querySelector(`[data-cursor="${style.id}"]`);
+                if (selectedButton) {
+                    selectedButton.classList.add('selected');
+                    this.currentSelected = selectedButton;
+                }
+                
+                // 显示/隐藏警告信息
+                if (style.warning) {
+                    this.warningMessage.style.display = 'block';
+                } else {
+                    this.warningMessage.style.display = 'none';
+                }
+                
+                // 显示/隐藏提示信息
+                if (style.info) {
+                    this.infoMessage.style.display = 'block';
+                } else {
+                    this.infoMessage.style.display = 'none';
+                }
+                
+                // 滚动到选中的按钮
+                selectedButton.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
-
-            // 高亮当前选中的按钮
-            button.classList.add('selected');
-            lastSelectedButton = button;
         }
-
-        /* 调用函数创建按钮 */
-        createButtons();
-    </script>
-</body>
-</html>
+        
+        // 初始化应用
+        document.addEventListener('DOMContentLoaded', () => {
+        new CursorPreviewApp();
+        
+        // 自动显示当前年份
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+</script>
