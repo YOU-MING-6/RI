@@ -7,51 +7,67 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* 颜色变量 */
-            --primary: #228be6;
+            /* 定义全局颜色变量 */
+            --primary: rgba(34, 139, 230, 1);
             --primary-light: rgba(34, 139, 230, 0.1);
-            --primary-dark: #228be6;
-            --success: #34a853;
-            --warning: #fbbc05;
-            --danger: #ea4335;
-            --info: #228be6;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-300: #dee2e6;
-            --gray-400: #ced4da;
-            --gray-500: #adb5bd;
-            --gray-600: #6c757d;
-            --gray-700: #495057;
-            --gray-800: #343a40;
-            --gray-900: #212529;
-            
-            /* 间距变量 */
-            --space-xs: 0.25rem;
+            --primary-dark: rgba(34, 139, 230, 1);
+            --success: rgba(46, 204, 113, 0.8);
+            --warning: rgba(255, 165, 0, 0.8);
+            --danger: rgba(220, 53, 69, 0.8);
+            --info: rgba(23, 162, 184, 0.8);
+            --note: rgba(121, 131, 140, 0.8);
+            --tip: rgba(40, 167, 69, 0.8);
+            --gray-100: rgba(248, 249, 250, 1);
+            --gray-200: rgba(233, 235, 239, 1);
+            --gray-300: rgba(222, 226, 230, 1);
+            --gray-400: rgba(206, 212, 218, 1);
+            --gray-500: rgba(153, 160, 168, 1);
+            --gray-600: rgba(106, 115, 125, 1);
+            --gray-700: rgba(70, 74, 78, 1);
+            --gray-800: rgba(50, 54, 58, 1);
+            --gray-900: rgba(30, 32, 34, 1);
+            /* 定义全局间距变量 */
+            --space-xs: 0.3rem;
             --space-sm: 0.5rem;
             --space-md: 1rem;
             --space-lg: 1.5rem;
             --space-xl: 2rem;
-            
-            /* 圆角变量 */
-            --radius-sm: 4px;
+            /* 定义全局圆角变量 */
+            --radius-sm: 6px;
             --radius-md: 8px;
-            --radius-lg: 12px;
-            
-            /* 阴影变量 */
+            --radius-lg: 10px;
+            /* 定义全局阴影变量 */
             --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            
-            /* 过渡效果 */
+            /* 定义全局过渡效果 */
             --transition: all 0.2s ease;
         }
 
-        /* 基础样式 */
+        [data-theme="dark"] {
+            /* 定义暗色主题下的颜色变量 */
+            --primary: rgba(64, 156, 255, 1);
+            --primary-light: rgba(64, 156, 255, 0.1);
+            --primary-dark: rgba(64, 156, 255, 1);
+            --gray-100: rgba(30, 32, 34, 1);
+            --gray-200: rgba(50, 54, 58, 1);
+            --gray-300: rgba(70, 74, 78, 1);
+            --gray-400: rgba(106, 115, 125, 1);
+            --gray-500: rgba(153, 160, 168, 1);
+            --gray-600: rgba(206, 212, 218, 1);
+            --gray-700: rgba(222, 226, 230, 1);
+            --gray-800: rgba(233, 235, 239, 1);
+            --gray-900: rgba(248, 249, 250, 1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+
         * {
+            /* 全局样式重置 */
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* 文本不可选中 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -59,15 +75,16 @@
         }
 
         body {
+            /* 设置全局字体样式 */
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.5;
             color: var(--gray-800);
             background-color: var(--gray-100);
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* 布局容器 */
         .app-container {
+            /* 定义应用容器样式 */
             display: grid;
             grid-template-columns: minmax(250px, 300px) 1fr;
             gap: var(--space-lg);
@@ -77,19 +94,20 @@
             margin: 0 auto;
         }
 
-        /* 侧边栏 */
         .sidebar {
+            /* 定义侧边栏样式 */
             display: flex;
             flex-direction: column;
             gap: var(--space-md);
         }
 
-        /* 搜索框 */
         .search-box {
+            /* 定义搜索框样式 */
             position: relative;
         }
 
         .search-box input {
+            /* 定义搜索框输入框样式 */
             width: 100%;
             padding: var(--space-sm) var(--space-md);
             padding-left: 2.5rem;
@@ -98,15 +116,18 @@
             font-size: 0.9rem;
             transition: var(--transition);
             background-color: var(--gray-100);
+            color: var(--gray-800);
         }
 
         .search-box input:focus {
+            /* 定义搜索框输入框聚焦样式 */
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px var(--primary-light);
         }
 
         .search-box i {
+            /* 定义搜索框图标样式 */
             position: absolute;
             left: var(--space-md);
             top: 50%;
@@ -114,33 +135,41 @@
             color: var(--gray-500);
         }
 
-        /* 按钮组 */
         .button-group {
+            /* 定义按钮组样式 */
             display: flex;
             flex-direction: column;
             gap: var(--space-xs);
             overflow-y: auto;
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 320px);
             padding-right: var(--space-xs);
         }
 
-        /* 自定义滚动条 */
         .button-group::-webkit-scrollbar {
+            /* 定义滚动条宽度 */
             width: 6px;
         }
 
         .button-group::-webkit-scrollbar-track {
+            /* 定义滚动条轨道样式 */
             background: var(--gray-200);
             border-radius: 10px;
         }
 
         .button-group::-webkit-scrollbar-thumb {
+            /* 定义滚动条滑块样式 */
             background: var(--gray-400);
             border-radius: 10px;
         }
 
-        /* 按钮样式 */
+        .button-group {
+            /* 定义滚动条宽度和颜色 */
+            scrollbar-width: thin;
+            scrollbar-color: var(--gray-400) var(--gray-200);
+        }
+
         .cursor-btn {
+            /* 定义鼠标样式按钮样式 */
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -156,16 +185,21 @@
         }
 
         .cursor-btn:hover {
+            /* 定义鼠标样式按钮悬停样式 */
             background-color: var(--gray-200);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
 
         .cursor-btn.selected {
+            /* 定义鼠标样式按钮选中样式 */
             background-color: var(--primary-light);
             color: var(--primary-dark);
             font-weight: 500;
         }
 
         .cursor-btn .badge {
+            /* 定义徽章样式 */
             font-size: 0.7rem;
             padding: 0.2rem 0.4rem;
             border-radius: var(--radius-sm);
@@ -173,23 +207,38 @@
             color: var(--gray-700);
         }
 
-        .cursor-btn.warning .badge {
-            background-color: var(--warning);
-            color: white;
-        }
-
         .cursor-btn.danger .badge {
+            /* 定义危险状态下的徽章样式 */
             background-color: var(--danger);
             color: white;
         }
 
+        .cursor-btn.warning .badge {
+            /* 定义警告状态下的徽章样式 */
+            background-color: var(--warning);
+            color: white;
+        }
+
         .cursor-btn.info .badge {
+            /* 定义信息状态下的徽章样式 */
             background-color: var(--info);
             color: white;
         }
 
-        /* 预览区域 */
+        .cursor-btn.note .badge {
+            /* 定义提示状态下的徽章样式 */
+            background-color: var(--note);
+            color: white;
+        }
+
+        .cursor-btn.tip .badge {
+            /* 定义实用技巧状态下的徽章样式 */
+            background-color: var(--tip);
+            color: white;
+        }
+
         .preview-area {
+            /* 定义预览区域样式 */
             display: flex;
             flex-direction: column;
             gap: var(--space-lg);
@@ -200,91 +249,75 @@
         }
 
         .preview-container {
+            /* 定义预览容器样式 */
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: white;
+            background-color: var(--gray-100);
             border-radius: var(--radius-sm);
             padding: var(--space-xl);
             text-align: center;
             cursor: default;
-        }
-
-        .preview-container.dark {
-            background-color: var(--gray-800);
-            color: white;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .preview-title {
+            /* 定义预览标题样式 */
             font-size: 1.2rem;
             margin-bottom: var(--space-md);
             font-weight: 500;
         }
 
         .preview-desc {
+            /* 定义预览描述样式 */
             color: var(--gray-600);
             max-width: 400px;
             margin: 0 auto;
         }
 
-        .preview-desc.dark {
-            color: var(--gray-400);
+        .danger-message, .warning-message, .info-message, .note-message, .tip-message {
+            /* 定义消息提示框样式 */
+            margin-top: var(--space-md);
+            padding: var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .danger-message {
+            /* 定义危险消息提示框样式 */
+            background-color: var(--danger);
+            color: white;
         }
 
         .warning-message {
-            margin-top: var(--space-md);
-            padding: var(--space-sm);
+            /* 定义警告消息提示框样式 */
             background-color: var(--warning);
             color: white;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
-            display: none;
         }
 
         .info-message {
-            margin-top: var(--space-md);
-            padding: var(--space-sm);
+            /* 定义信息消息提示框样式 */
             background-color: var(--info);
             color: white;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
-            display: none;
-        }
-        /* 暗色模式 */
-        @media (prefers-color-scheme: dark) {
-            body {
-                color: var(--gray-200);
-                background-color: var(--gray-900);
-            }
-            
-            /* 修复暗色模式下预览区域背景 */
-            .preview-area {
-                background-color: var(--gray-700);
-            }
-            
-            /* 修复暗色模式下搜索框样式 */
-            .search-box input {
-                background-color: var(--gray-800);
-                border-color: var(--gray-700);
-                color: var(--gray-200);
-            }
-            
-            /* 修复暗色模式下按钮悬停效果 */
-            .cursor-btn:hover {
-                background-color: var(--gray-700);
-            }
-            
-            /* 修复暗色模式下选中按钮样式 */
-            .cursor-btn.selected {
-                background-color: var(--primary-dark);
-                color: white;
-            }
         }
 
-        /* 页脚样式 */
+        .note-message {
+            /* 定义提示消息提示框样式 */
+            background-color: var(--note);
+            color: white;
+        }
+
+        .tip-message {
+            /* 定义实用技巧消息提示框样式 */
+            background-color: var(--tip);
+            color: white;
+        }
+
         .footer {
+            /* 定义页脚样式 */
             grid-column: 1 / -1;
             text-align: center;
             padding: var(--space-md) 0;
@@ -294,15 +327,8 @@
             margin-top: var(--space-lg);
         }
 
-        @media (prefers-color-scheme: dark) {
-            .footer {
-                color: var(--gray-400);
-                border-top-color: var(--gray-700);
-            }
-        }
-
-        /* 响应式设计 */
         @media (max-width: 768px) {
+            /* 定义响应式布局样式 */
             .app-container {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto 1fr;
@@ -311,6 +337,45 @@
             .button-group {
                 max-height: 200px;
             }
+        }
+
+        .theme-toggle-btn {
+            /* 定义主题切换按钮样式 */
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--gray-200);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            /* 定义主题切换按钮悬停样式 */
+            background-color: var(--gray-300);
+        }
+
+        .theme-toggle-btn i {
+            /* 定义主题切换按钮图标样式 */
+            font-size: 0.9rem;
+        }
+
+        [data-theme="dark"] .theme-toggle-btn {
+            /* 定义暗色主题下的主题切换按钮样式 */
+            background-color: var(--gray-300);
+            color: var(--gray-800);
+        }
+
+        [data-theme="dark"] .theme-toggle-btn:hover {
+            /* 定义暗色主题下的主题切换按钮悬停样式 */
+            background-color: var(--gray-400);
         }
     </style>
 </head>
@@ -323,16 +388,23 @@
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="搜索鼠标样式...">
             </div>
-            
             <div class="button-group" id="buttonsContainer"></div>
         </div>
-        
         <div class="preview-area">
             <div class="preview-container" id="displayArea">
                 <h2 class="preview-title">鼠标样式预览区</h2>
                 <p class="preview-desc">请从左侧选择要预览的鼠标样式</p>
-                <p class="preview-desc">将鼠标移动到此处查看样式</p>
+                <p class="preview-desc" style="margin-top: 10px;">将鼠标移动到此处查看样式</p>
                 
+                <button class="theme-toggle-btn" id="themeToggleBtn">
+                    <i class="fas fa-moon"></i> 切换主题
+                </button>
+                
+                <div class="danger-message" id="dangerMessage">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    注意：此鼠标样式为系统默认，无法在鼠标设置中更改，并且某些浏览器中可能显示不正常
+                </div>
+
                 <div class="warning-message" id="warningMessage">
                     <i class="fas fa-exclamation-triangle"></i>
                     注意：此鼠标样式为系统默认，无法在鼠标设置中更改
@@ -340,33 +412,58 @@
                 
                 <div class="info-message" id="infoMessage">
                     <i class="fas fa-info-circle"></i>
-                    提示：此样式会隐藏鼠标指针，鼠标不可见属于正常现象
+                    提示：此鼠标样式会隐藏鼠标指针，鼠标不可见属于正常现象
+                </div>
+                
+                <div class="note-message" id="noteMessage">
+                    <i class="fas fa-sticky-note"></i>
+                    说明：此鼠标样式在某些浏览器中可能显示不正常
+                </div>
+                
+                <div class="tip-message" id="tipMessage">
+                    <i class="fas fa-lightbulb"></i>
+                    文本
                 </div>
             </div>
         </div>
         <div class="footer">
-            <p>鼠标样式预览工具 &copy; 2025 - <span id="currentYear"></span> | <a href="https://work.youming.v6.army/notes/更多/工作室.html#you-ming-柚明" target="_blank" style="color: var(--gray-600);">Youming 工作室</a></p>
-        </div>
+            <p>鼠标样式预览工具 &copy; 2025 - <span id="currentYear"></span>
+                <a href="https://work.youming.v6.army/notes/更多/工作室.html#you-ming-柚明" target="_blank" style="color: var(--gray-600);">
+                    Youming 工作室
+                </a>  |  
+                <a href="https://web.youming.v6.army" target="_blank" style="color: var(--gray-600);">YM 站点监测</a>
+            </p>
+        </div>    
     </div>
 
     <script>
-        // 鼠标样式数据
         const CURSOR_STYLES = [
-            { id: 'default', label: '默认指针', desc: '标准选择指针', icon: 'arrow-pointer' },
-            { id: 'pointer', label: '链接指针', desc: '表示可点击的链接', icon: 'hand-pointer' },
-            { id: 'text', label: '文本选择', desc: '表示可选择的文本', icon: 'i-cursor' },
+            { id: 'default', label: '正常选择', desc: '标准选择指针', icon: 'arrow-pointer' },
+            { id: 'help', label: '帮助选择', desc: '表示可用的帮助', icon: 'question-circle' },
+            { id: 'progress', label: '后台运行', desc: '表示后台处理中', icon: 'sync' },
+            { id: 'wait', label: '忙', desc: '表示系统繁忙', icon: 'spinner' },
             { id: 'crosshair', label: '精确选择', desc: '用于精确选择工具', icon: 'crosshairs' },
-            { id: 'wait', label: '等待', desc: '表示系统繁忙', icon: 'spinner' },
-            { id: 'help', label: '帮助', desc: '表示可用的帮助', icon: 'question-circle' },
-            { id: 'progress', label: '进度中', desc: '表示后台处理中', icon: 'sync' },
-            { id: 'not-allowed', label: '禁止', desc: '表示不可用的操作', icon: 'ban' },
-            { id: 'move', label: '移动 & 全方位滚动', desc: '表示可移动的对象 或 可全方位滚动的区域', icon: 'arrows-alt' },
-            { id: 'ns-resize', label: '垂直调整', desc: '表示垂直调整大小', icon: 'arrows-alt-v' },
-            { id: 'ew-resize', label: '水平调整', desc: '表示水平调整大小', icon: 'arrows-alt-h' },
-            { id: 'nesw-resize', label: '对角调整1', desc: '表示对角线调整大小', icon: 'arrows-alt' },
-            { id: 'nwse-resize', label: '对角调整2', desc: '表示对角线调整大小', icon: 'arrows-alt' },
+            { id: 'text', label: '文本选择', desc: '表示可选择的文本', icon: 'i-cursor' },
+            { id: 'writing', label: '手写', desc: '表示手写操作', note: true, icon: 'pen' },
+            { id: 'not-allowed', label: '不可用', desc: '表示不可用的操作', icon: 'ban' },
+            { id: 'ns-resize', label: '垂直调整大小', desc: '表示垂直调整大小', icon: 'arrows-alt-v' },
+            { id: 'ew-resize', label: '水平调整大小', desc: '表示水平调整大小', icon: 'arrows-alt-h' },
+            { id: 'nwse-resize', label: '沿对角线调整大小1', desc: '表示对角线调整大小', icon: 'arrows-alt' },
+            { id: 'nesw-resize', label: '沿对角线调整大小2', desc: '表示对角线调整大小', icon: 'arrows-alt' },
+            { id: 'move', label: '移动', desc: '表示可移动的对象', icon: 'arrows-alt' },
+            { id: 'candidate', label: '候选', desc: '表示候选操作', icon: 'keyboard' },
+            { id: 'pointer', label: '链接选择', desc: '表示可点击的链接', icon: 'hand-pointer' },
+            { id: 'location-pointer', label: '位置选择', desc: '表示位置选择', note: true, icon: 'map-marker' },
+            { id: 'user-pointer', label: '个人选择', desc: '表示个人选择或用户选择', note: true, icon: 'user' },
+            { id: 'vertical-text', label: '垂直文本', desc: '表示垂直文本选择', warning: true, icon: 'i-cursor' },
+            { id: 'alias', label: '别名', desc: '表示创建快捷方式', warning: true, icon: 'link' },
+            { id: 'copy', label: '复制', desc: '表示复制操作', warning: true, icon: 'copy' },
+            { id: 'context-menu', label: '上下文菜单', desc: '表示上下文菜单可用', danger: true, icon: 'ellipsis-h' },
+            { id: 'cell', label: '单元格选择', desc: '表示单元格选择', warning: true, icon: 'table' },
             { id: 'col-resize', label: '列调整', desc: '表示列调整大小', warning: true, icon: 'grip-lines-vertical' },
             { id: 'row-resize', label: '行调整', desc: '表示行调整大小', warning: true, icon: 'grip-lines' },
+            { id: 'all-scroll', label: '全方位滚动', desc: '表示可全方位滚动的区域', danger: true, icon: 'arrows-alt' },
+            { id: 'no-drop', label: '禁止放置', desc: '表示禁止放置操作', danger: true, icon: 'ban' },
             { id: 'zoom-in', label: '放大', desc: '表示放大功能', warning: true, icon: 'search-plus' },
             { id: 'zoom-out', label: '缩小', desc: '表示缩小功能', warning: true, icon: 'search-minus' },
             { id: 'grab', label: '抓取', desc: '表示可抓取的对象', warning: true, icon: 'hand-paper' },
@@ -374,26 +471,37 @@
             { id: 'none', label: '无指针', desc: '隐藏鼠标指针', info: true, icon: 'eye-slash' }
         ];
 
-        // 鼠标预览应用
         class CursorPreviewApp {
             constructor() {
+                /* 初始化应用类，获取DOM元素并设置初始状态 */
                 this.buttonsContainer = document.getElementById('buttonsContainer');
                 this.displayArea = document.getElementById('displayArea');
                 this.searchInput = document.getElementById('searchInput');
+                this.dangerMessage = document.getElementById('dangerMessage');
                 this.warningMessage = document.getElementById('warningMessage');
                 this.infoMessage = document.getElementById('infoMessage');
+                this.noteMessage = document.getElementById('noteMessage');
+                this.tipMessage = document.getElementById('tipMessage');
+                this.themeToggleBtn = document.getElementById('themeToggleBtn');
                 this.currentSelected = null;
-                
+                this.isDarkTheme = false;
                 this.init();
             }
             
             init() {
-                this.renderCursorButtons();
-                this.setupEventListeners();
-                this.selectDefaultCursor();
+                /* 初始化应用，包括渲染按钮、设置事件监听器、选择默认样式和检测系统主题 */
+                try {
+                    this.renderCursorButtons();
+                    this.setupEventListeners();
+                    this.selectDefaultCursor();
+                    this.detectSystemTheme();
+                } catch (error) {
+                    console.error('应用初始化失败:', error);
+                }
             }
             
             renderCursorButtons() {
+                /* 渲染鼠标样式按钮到按钮组容器 */
                 this.buttonsContainer.innerHTML = '';
                 
                 CURSOR_STYLES.forEach(style => {
@@ -401,10 +509,16 @@
                     button.className = 'cursor-btn';
                     button.dataset.cursor = style.id;
                     
-                    if (style.warning) {
+                    if (style.danger) {
+                        button.classList.add('danger');
+                    } else if (style.warning) {
                         button.classList.add('warning');
                     } else if (style.info) {
                         button.classList.add('info');
+                    } else if (style.note) {
+                        button.classList.add('note');
+                    } else if (style.tip) {
+                        button.classList.add('tip');
                     }
                     
                     button.innerHTML = `
@@ -412,96 +526,140 @@
                             <i class="fas fa-${style.icon}"></i>
                             ${style.label}
                         </span>
+                        ${style.danger ? '<span class="badge">差异 | 系统默认</span>' : ''}
                         ${style.warning ? '<span class="badge">系统默认</span>' : ''}
                         ${style.info ? '<span class="badge">指针将不可见</span>' : ''}
+                        ${style.note ? '<span class="badge">浏览器差异</span>' : ''}
+                        ${style.tip ? '<span class="badge">实用技巧</span>' : ''}
                     `;
-                    
+
                     button.addEventListener('click', () => this.selectCursor(style));
                     this.buttonsContainer.appendChild(button);
                 });
             }
 
             setupEventListeners() {
-                // 搜索功能
-                this.searchInput.addEventListener('input', (e) => {
-                    const searchTerm = e.target.value.toLowerCase();
-                    const buttons = this.buttonsContainer.querySelectorAll('.cursor-btn');
-                    
-                    buttons.forEach(button => {
-                        const label = button.textContent.toLowerCase();
-                        button.style.display = label.includes(searchTerm) ? 'flex' : 'none';
+                /* 设置事件监听器，包括搜索输入框和主题切换按钮的点击事件 */
+                try {
+                    this.searchInput.addEventListener('input', (e) => {
+                        const searchTerm = e.target.value.toLowerCase();
+                        const buttons = this.buttonsContainer.getElementsByClassName('cursor-btn');
+                        
+                        for (let i = 0; i < buttons.length; i++) {
+                            const label = buttons[i].textContent.toLowerCase();
+                            buttons[i].style.display = label.includes(searchTerm) ? 'flex' : 'none';
+                        }
                     });
-                });
-                
-                // 暗色模式检测
-                const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-                this.toggleDarkModePreview(darkModeMediaQuery.matches);
-                darkModeMediaQuery.addListener(e => this.toggleDarkModePreview(e.matches));
-            }
-            
-            toggleDarkModePreview(isDark) {
-                if (isDark) {
-                    this.displayArea.classList.add('dark');
-                    this.displayArea.querySelector('.preview-desc').classList.add('dark');
-                } else {
-                    this.displayArea.classList.remove('dark');
-                    this.displayArea.querySelector('.preview-desc').classList.remove('dark');
+                    
+                    this.themeToggleBtn.addEventListener('click', () => {
+                        this.toggleTheme();
+                    });
+                } catch (error) {
+                    console.error('事件监听器设置失败:', error);
                 }
             }
             
+            detectSystemTheme() {
+                /* 检测系统主题并应用相应的主题样式 */
+                try {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+                    this.isDarkTheme = prefersDark.matches;
+                    
+                    if (this.isDarkTheme) {
+                        this.applyDarkTheme();
+                    } else {
+                        this.applyLightTheme();
+                    }
+                    
+                    prefersDark.addEventListener('change', (e) => {
+                        if (!this.userThemeSet) {
+                            this.isDarkTheme = prefersDark.matches;
+                            this.isDarkTheme ? this.applyDarkTheme() : this.applyLightTheme();
+                        }
+                    });
+                } catch (error) {
+                    console.error('检测系统主题失败:', error);
+                }
+            }
+            
+            toggleTheme() {
+                /* 切换主题，并设置用户已更改主题标志 */
+                try {
+                    this.isDarkTheme = !this.isDarkTheme;
+                    this.userThemeSet = true;
+                    this.isDarkTheme ? this.applyDarkTheme() : this.applyLightTheme();
+                } catch (error) {
+                    console.error('切换主题失败:', error);
+                }
+            }
+            
+            applyLightTheme() {
+                /* 应用浅色主题样式 */
+                document.documentElement.setAttribute('data-theme', 'light');
+                this.themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i> 切换暗色主题';
+            }
+            
+            applyDarkTheme() {
+                /* 应用暗色主题样式 */
+                document.documentElement.setAttribute('data-theme', 'dark');
+                this.themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> 切换浅色主题';
+            }
+            
             selectDefaultCursor() {
-                const defaultCursor = CURSOR_STYLES.find(style => style.id === 'default');
-                if (defaultCursor) {
-                    this.selectCursor(defaultCursor);
+                /* 选择默认鼠标样式 */
+                try {
+                    const defaultCursor = CURSOR_STYLES.find(style => style.id === 'default');
+                    if (defaultCursor) {
+                        this.selectCursor(defaultCursor);
+                    }
+                } catch (error) {
+                    console.error('选择默认鼠标样式失败:', error);
                 }
             }
             
             selectCursor(style) {
-                // 更新显示区域的鼠标样式
-                this.displayArea.style.cursor = style.id;
-                
-                // 更新预览信息
-                const title = this.displayArea.querySelector('.preview-title');
-                const desc = this.displayArea.querySelector('.preview-desc');
-                
-                title.innerHTML = `<i class="fas fa-${style.icon}"></i> ${style.label}`;
-                desc.textContent = style.desc;
-                
-                // 更新按钮选中状态
-                if (this.currentSelected) {
-                    this.currentSelected.classList.remove('selected');
+                /* 根据选择的鼠标样式更新预览区域 */
+                try {
+                    this.displayArea.style.cursor = style.id;
+                    
+                    const title = this.displayArea.querySelector('.preview-title');
+                    const desc = this.displayArea.querySelector('.preview-desc');
+                    
+                    title.innerHTML = `<i class="fas fa-${style.icon}"></i> ${style.label}`;
+                    desc.textContent = style.desc;
+                    
+                    if (this.currentSelected) {
+                        this.currentSelected.classList.remove('selected');
+                    }
+                    
+                    const selectedButton = this.buttonsContainer.querySelector(`[data-cursor="${style.id}"]`);
+                    if (selectedButton) {
+                        selectedButton.classList.add('selected');
+                        this.currentSelected = selectedButton;
+                    }
+                    
+                    this.dangerMessage.style.display = style.danger ? 'block' : 'none';
+                    this.warningMessage.style.display = style.warning ? 'block' : 'none';
+                    this.infoMessage.style.display = style.info ? 'block' : 'none';
+                    this.noteMessage.style.display = style.note ? 'block' : 'none';
+                    this.tipMessage.style.display = style.tip ? 'block' : 'none';
+                    
+                    selectedButton.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } catch (error) {
+                    console.error('选择鼠标样式失败:', error);
                 }
-                
-                const selectedButton = this.buttonsContainer.querySelector(`[data-cursor="${style.id}"]`);
-                if (selectedButton) {
-                    selectedButton.classList.add('selected');
-                    this.currentSelected = selectedButton;
-                }
-                
-                // 显示/隐藏警告信息
-                if (style.warning) {
-                    this.warningMessage.style.display = 'block';
-                } else {
-                    this.warningMessage.style.display = 'none';
-                }
-                
-                // 显示/隐藏提示信息
-                if (style.info) {
-                    this.infoMessage.style.display = 'block';
-                } else {
-                    this.infoMessage.style.display = 'none';
-                }
-                
-                // 滚动到选中的按钮
-                selectedButton.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
         
-        // 初始化应用
         document.addEventListener('DOMContentLoaded', () => {
-        new CursorPreviewApp();
-        
-        // 自动显示当前年份
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    });
-</script>
+            /* 文档加载完成后初始化应用并设置当前年份 */
+            try {
+                new CursorPreviewApp();
+                document.getElementById('currentYear').textContent = new Date().getFullYear();
+            } catch (error) {
+                console.error('文档加载事件监听器失败:', error);
+            }
+        });
+    </script>
+</body>
+</html>
