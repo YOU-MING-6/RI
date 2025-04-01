@@ -12,11 +12,11 @@
             --primary-light: rgba(34, 139, 230, 0.1);
             --primary-dark: rgba(34, 139, 230, 1);
             --success: rgba(46, 204, 113, 0.8);
-            --danger: rgba(255, 165, 0, 0.7);
-            --warning: rgba(255, 165, 0, 0.7);
-            --info: rgba(23, 162, 184, 0.7);
-            --note: rgba(121, 131, 140, 0.7);
-            --tip: rgba(40, 167, 69, 0.7);
+            --danger: rgba(255, 165, 0, 0.8);
+            --warning: rgba(255, 165, 0, 0.8);
+            --info: rgba(23, 162, 184, 0.8);
+            --note: rgba(121, 131, 140, 0.8);
+            --tip: rgba(40, 167, 69, 0.8);
             --gray-100: rgba(248, 249, 250, 1);
             --gray-200: rgba(233, 235, 239, 1);
             --gray-300: rgba(222, 226, 230, 1);
@@ -43,7 +43,7 @@
             /* 定义全局过渡效果 */
             --transition: all 0.2s ease;
         }
-
+    
         [data-theme="dark"] {
             /* 定义暗色主题下的颜色变量 */
             --primary: rgba(64, 156, 255, 1);
@@ -62,7 +62,7 @@
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
             --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
         }
-
+    
         * {
             /* 全局样式重置 */
             box-sizing: border-box;
@@ -73,7 +73,7 @@
             -ms-user-select: none;
             user-select: none;
         }
-
+    
         body {
             /* 设置全局字体样式 */
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -82,7 +82,7 @@
             background-color: var(--gray-100);
             transition: background-color 0.3s, color 0.3s;
         }
-
+    
         .app-container {
             /* 定义应用容器样式 */
             display: grid;
@@ -93,19 +93,30 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
+    
         .sidebar {
             /* 定义侧边栏样式 */
             display: flex;
             flex-direction: column;
             gap: var(--space-md);
         }
-
+    
+        /* 标题按钮容器 */
+        .header-buttons {
+            display: flex;
+            justify-content: start;
+            gap: var(--space-sm);
+        }
+    
+        .sidebar h1 {
+            margin-top: 0;
+        }
+    
         .search-box {
             /* 定义搜索框样式 */
             position: relative;
         }
-
+    
         .search-box input {
             /* 定义搜索框输入框样式 */
             width: 100%;
@@ -118,14 +129,14 @@
             background-color: var(--gray-100);
             color: var(--gray-800);
         }
-
+    
         .search-box input:focus {
             /* 定义搜索框输入框聚焦样式 */
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px var(--primary-light);
         }
-
+    
         .search-box i {
             /* 定义搜索框图标样式 */
             position: absolute;
@@ -134,7 +145,7 @@
             transform: translateY(-50%);
             color: var(--gray-500);
         }
-
+    
         .button-group {
             /* 定义按钮组样式 */
             display: flex;
@@ -144,30 +155,30 @@
             max-height: calc(100vh - 320px);
             padding-right: var(--space-xs);
         }
-
+    
         .button-group::-webkit-scrollbar {
             /* 定义滚动条宽度 */
             width: 6px;
         }
-
+    
         .button-group::-webkit-scrollbar-track {
             /* 定义滚动条轨道样式 */
             background: var(--gray-200);
             border-radius: 10px;
         }
-
+    
         .button-group::-webkit-scrollbar-thumb {
             /* 定义滚动条滑块样式 */
             background: var(--gray-400);
             border-radius: 10px;
         }
-
+    
         .button-group {
             /* 定义滚动条宽度和颜色 */
             scrollbar-width: thin;
             scrollbar-color: var(--gray-400) var(--gray-200);
         }
-
+    
         .cursor-btn {
             /* 定义鼠标样式按钮样式 */
             display: flex;
@@ -183,21 +194,21 @@
             cursor: pointer;
             transition: var(--transition);
         }
-
+    
         .cursor-btn:hover {
             /* 定义鼠标样式按钮悬停样式 */
             background-color: var(--gray-200);
             transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
         }
-
+    
         .cursor-btn.selected {
             /* 定义鼠标样式按钮选中样式 */
             background-color: var(--primary-light);
             color: var(--primary-dark);
             font-weight: 500;
         }
-
+    
         .cursor-btn .badge {
             /* 定义徽章样式 */
             font-size: 0.7rem;
@@ -206,37 +217,37 @@
             background-color: var(--gray-200);
             color: var(--gray-700);
         }
-
+    
         .cursor-btn.danger .badge {
             /* 定义危险状态下的徽章样式 */
             background-color: var(--danger);
             color: white;
         }
-
+    
         .cursor-btn.warning .badge {
             /* 定义警告状态下的徽章样式 */
             background-color: var(--warning);
             color: white;
         }
-
+    
         .cursor-btn.info .badge {
             /* 定义信息状态下的徽章样式 */
             background-color: var(--info);
             color: white;
         }
-
+    
         .cursor-btn.note .badge {
             /* 定义提示状态下的徽章样式 */
             background-color: var(--note);
             color: white;
         }
-
+    
         .cursor-btn.tip .badge {
             /* 定义实用技巧状态下的徽章样式 */
             background-color: var(--tip);
             color: white;
         }
-
+    
         .preview-area {
             /* 定义预览区域样式 */
             display: flex;
@@ -247,7 +258,7 @@
             padding: var(--space-lg);
             box-shadow: var(--shadow-sm);
         }
-
+    
         .preview-container {
             /* 定义预览容器样式 */
             flex-grow: 1;
@@ -262,28 +273,28 @@
             cursor: default;
             transition: background-color 0.3s, color 0.3s;
         }
-
+    
         .preview-title {
             /* 定义预览标题样式 */
             font-size: 1.2rem;
             margin-bottom: var(--space-md);
             font-weight: 500;
         }
-
+    
         .preview-desc {
             /* 定义预览描述样式 */
             color: var(--gray-600);
             max-width: 400px;
             margin: 0 auto;
         }
-
+    
         .preview-descs {
             /* 定义预览描述样式 */
             color: var(--gray-700);
             max-width: 400px;
             margin: 0 auto;
         }
-
+    
         .danger-message, .warning-message, .info-message, .note-message, .tip-message {
             /* 定义消息提示框样式 */
             margin-top: var(--space-md);
@@ -293,37 +304,37 @@
             display: none;
             max-width: 400px;
         }
-
+    
         .danger-message {
             /* 定义danger消息提示框样式 */
             background-color: var(--danger);
             color: white;
         }
-
+    
         .warning-message {
             /* 定义warning消息提示框样式 */
             background-color: var(--warning);
             color: white;
         }
-
+    
         .info-message {
             /* 定义info消息提示框样式 */
             background-color: var(--info);
             color: white;
         }
-
+    
         .note-message {
             /* 定义note消息提示框样式 */
             background-color: var(--note);
             color: white;
         }
-
+    
         .tip-message {
             /* 定义tip消息提示框样式 */
             background-color: var(--tip);
             color: white;
         }
-
+    
         .footer {
             /* 定义页脚样式 */
             grid-column: 1 / -1;
@@ -334,24 +345,10 @@
             border-top: 1px solid var(--gray-200);
             margin-top: var(--space-lg);
         }
-
-        @media (max-width: 768px) {
-            /* 定义响应式布局样式 */
-            .app-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr;
-            }
-            
-            .button-group {
-                max-height: 200px;
-            }
-        }
-
+    
         /* 主题切换按钮样式 */
         .theme-toggle-btn {
-            position: absolute;
-            top: var(--space-md);
-            right: 110px;
+            position: relative;
             padding: var(--space-sm) var(--space-md);
             background-color: var(--gray-200);
             border: none;
@@ -365,39 +362,37 @@
             transition: all 0.3s ease;
             transform-origin: center;
         }
-
+    
         .theme-toggle-btn:hover {
             background-color: var(--gray-300);
             transform: scale(1.05);
         }
-
+    
         .theme-toggle-btn:active {
             transform: scale(0.95);
         }
-
+    
         .theme-toggle-btn i {
             font-size: 0.9rem;
         }
-
+    
         [data-theme="dark"] .theme-toggle-btn {
             background-color: var(--gray-300);
             color: var(--gray-800);
         }
-
+    
         [data-theme="dark"] .theme-toggle-btn:hover {
             background-color: var(--gray-400);
             transform: scale(1.05);
         }
-
+    
         [data-theme="dark"] .theme-toggle-btn:active {
             transform: scale(0.95);
         }
-
+    
         /* 关于按钮样式 */
         .about-btn {
-            position: absolute;
-            top: var(--space-md);
-            right: var(--space-md);
+            position: relative;
             padding: var(--space-sm) var(--space-md);
             background-color: var(--gray-200);
             border: none;
@@ -409,33 +404,32 @@
             gap: var(--space-xs);
             cursor: pointer;
             transition: all 0.3s ease;
-            z-index: 10;
             transform-origin: center;
         }
-
+    
         .about-btn:hover {
             background-color: var(--gray-300);
             transform: scale(1.05);
         }
-
+    
         .about-btn:active {
             transform: scale(0.95);
         }
-
+    
         [data-theme="dark"] .about-btn {
             background-color: var(--gray-300);
             color: var(--gray-800);
         }
-
+    
         [data-theme="dark"] .about-btn:hover {
             background-color: var(--gray-400);
             transform: scale(1.05);
         }
-
+    
         [data-theme="dark"] .about-btn:active {
             transform: scale(0.95);
         }
-
+    
         /* 关于窗口样式 */
         .about-overlay {
             position: fixed;
@@ -453,12 +447,12 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(5px);
         }
-
+    
         .about-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-
+    
         .about-container {
             background-color: var(--gray-100);
             border-radius: var(--radius-md);
@@ -472,12 +466,12 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid var(--gray-300);
         }
-
+    
         .about-overlay.active .about-container {
             transform: scale(1);
             opacity: 1;
         }
-
+    
         .about-close-btn {
             position: absolute;
             top: var(--space-sm);
@@ -496,21 +490,21 @@
             align-items: center;
             justify-content: center;
         }
-
+    
         .about-close-btn:hover {
             background-color: var(--gray-200);
             color: var(--gray-800);
             transform: rotate(90deg);
         }
-
+    
         .about-close-btn:active {
             transform: scale(0.9) rotate(90deg);
         }
-
+    
         [data-theme="dark"] .about-close-btn:hover {
             background-color: var(--gray-400);
         }
-
+    
         .about-title {
             font-size: 1.5rem;
             margin-bottom: var(--space-md);
@@ -519,28 +513,28 @@
             align-items: center;
             gap: var(--space-sm);
         }
-
+    
         .about-content {
             line-height: 1.6;
             color: var(--gray-700);
         }
-
+    
         .about-content p {
             margin-bottom: var(--space-md);
         }
-
+    
         .about-features {
             margin: var(--space-md) 0;
             padding-left: var(--space-md);
             list-style-type: none;
         }
-
+    
         .about-features li {
             margin-bottom: var(--space-sm);
             position: relative;
             padding-left: 25px;
         }
-
+    
         .about-features li:before {
             content: "•";
             color: var(--primary);
@@ -549,21 +543,21 @@
             left: 0;
             top: -3px;
         }
-
+    
         .about-version {
             font-size: 0.9rem;
             color: var(--gray-500);
             text-align: right;
             margin-top: var(--space-md);
         }
-
+    
         /* 按钮脉冲动画 */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-
+    
         .about-btn.pulse {
             animation: pulse 2s infinite;
         }
@@ -577,26 +571,30 @@
             .button-group {
                 max-height: 200px;
             }
+            
+            .header-buttons {
+                justify-content: flex-start;
+            }
         }
-
+    
         /* 暗色主题下的关于窗口样式 */
         [data-theme="dark"] .about-container {
             background-color: var(--gray-200);
             border-color: var(--gray-400);
         }
-
+    
         [data-theme="dark"] .about-content {
             color: var(--gray-600);
         }
-
+    
         [data-theme="dark"] .about-features li:before {
             color: var(--primary-dark);
         }
-
+    
         [data-theme="dark"] .about-close-btn {
             color: var(--gray-500);
         }
-
+    
         /* 确保关于页面中的消息框也能显示 */
         .about-content .warning-message, .about-content .tip-message {
             display: flex !important; /* 强制显示 */
@@ -610,6 +608,14 @@
 <body>
     <div class="app-container">
         <div class="sidebar">
+            <div class="header-buttons">
+                <button class="about-btn" id="aboutBtn">
+                    <i class="fas fa-info-circle"></i> 关于
+                </button>
+                <button class="theme-toggle-btn" id="themeToggleBtn">
+                    <i class="fas fa-palette"></i> 切换主题
+                </button>
+            </div>
             <h1>鼠标样式预览</h1>
             <p>点击下方按钮实时预览 <b>你</b> 设置的鼠标样式</p>
             <div class="search-box">
@@ -625,17 +631,9 @@
                 <p class="preview-descs" style="margin-top: 10px;">将鼠标移动到此处查看样式</p>
                 <p class="preview-descs">不同的设备可能有不同的显示效果</p>
                 
-                <button class="about-btn" id="aboutBtn">
-                    <i class="fas fa-info-circle"></i> 关于
-                </button>
-                
-                <button class="theme-toggle-btn" id="themeToggleBtn">
-                    <i class="fas fa-round-fill"></i> 切换主题
-                </button>
-                
                 <div class="danger-message" id="dangerMessage">
                     <i class="fas fa-exclamation-triangle"></i>
-                    注意：此鼠标样式为系统默认，无法在鼠标设置中更改，并且在某些浏览器中，可能无法显示
+                    注意：此鼠标样式为系统默认，无法在鼠标设置中更改，并且在某些浏览器中，可能显示不正确
                 </div>
 
                 <div class="warning-message" id="warningMessage">
@@ -645,7 +643,7 @@
                 
                 <div class="info-message" id="infoMessage">
                     <i class="fas fa-info-circle"></i>
-                    说明：此鼠标样式在某些浏览器中，可能无法显示
+                    说明：此鼠标样式在某些浏览器中，可能显示不正确
                 </div>
                 
                 <div class="note-message" id="noteMessage">
@@ -658,14 +656,6 @@
                     文本
                 </div>
             </div>
-        </div>
-        <div class="footer">
-            <p>鼠标样式预览工具 &copy; 2025 - <span id="currentYear"></span>
-                <a href="https://work.youming.v6.army/notes/更多/工作室.html#you-ming-柚明" target="_blank" style="color: var(--gray-600);">
-                    Youming 工作室
-                </a>  |  
-                <a href="https://web.youming.v6.army" target="_blank" style="color: var(--gray-600);">YM 站点监测</a>
-            </p>
         </div>
     </div>
 
